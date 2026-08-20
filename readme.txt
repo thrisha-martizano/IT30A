@@ -23,4 +23,4 @@ alter table students MODIFY COLUMN student_created_at TIMESTAMP NOT NULL DEFAULT
 update students SET student_created_at = CURRENT_TIMESTAMP WHERE student_created_at IS NULL;
 
 SHOW TABLES
-Describe Students
+Describe STUDENTS
