@@ -1,5 +1,4 @@
 
-
 CREATE DATABASE <database_name>;
 SHOW DATABASES;
 CONNECT  <database_name>;
@@ -22,5 +21,4 @@ LABORATORY #2
 alter table students MODIFY COLUMN student_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 update students SET student_created_at = CURRENT_TIMESTAMP WHERE student_created_at IS NULL;
 
-SHOW TABLES
-Describe Students
+THRISHA
