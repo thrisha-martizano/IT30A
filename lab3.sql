@@ -85,6 +85,7 @@ UPDATE borrow
 SET borrow_return_date = CURRENT_TIMESTAMP
 WHERE borrow_id = 5 AND borrow_return_date IS NULL;
 
+
 select
     br.borrow_id,
     
@@ -107,5 +108,5 @@ JOIN students s ON
 JOIN books b ON
     br.book_id = b.book_id
 
-WHERE br.borrow_return_date is NOT NULL 
+WHERE br.borrow_return_date IS NOT NULL 
 ORDER BY br.borrow_date DESC;
