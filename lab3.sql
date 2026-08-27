@@ -50,3 +50,62 @@ JOIN books b ON
 
 WHERE br.borrow_return_date is NULL 
 ORDER BY br.borrow_date DESC;
+
+
+
+--Aug. 27, 2026
+
+select
+    br.borrow_id,
+    
+    CONCAT(
+        s.student_first_name,
+        ' ',
+        s.student_last_name
+    ) as student_name,
+    
+
+    b.book_title,
+    b.book_author,
+    b.book_category,
+
+    br.borrow_date,
+    br.borrow_return_date
+FROM borrow br
+JOIN students s ON
+    br.student_id = s.student_id
+JOIN books b ON
+    br.book_id = b.book_id
+
+WHERE br.borrow_return_date is NULL 
+ORDER BY br.borrow_date DESC;
+
+--Set borrow id for the borrowed book you want to return
+UPDATE borrow
+SET borrow_return_date = CURRENT_TIMESTAMP
+WHERE borrow_id = 5 AND borrow_return_date IS NULL;
+
+select
+    br.borrow_id,
+    
+    CONCAT(
+        s.student_first_name,
+        ' ',
+        s.student_last_name
+    ) as student_name,
+    
+
+    b.book_title,
+    b.book_author,
+    b.book_category,
+
+    br.borrow_date,
+    br.borrow_return_date
+FROM borrow br
+JOIN students s ON
+    br.student_id = s.student_id
+JOIN books b ON
+    br.book_id = b.book_id
+
+WHERE br.borrow_return_date is NOT NULL 
+ORDER BY br.borrow_date DESC;
