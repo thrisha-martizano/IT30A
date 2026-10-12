@@ -238,6 +238,7 @@ if($section==='books' && $action==='update'){
 //---------------------------------------------------
 
 // Fetch Borrorw Records
+// Fetch Borrow Records
 if($section === 'borrow'){
 
     // Fetch Students for borrow form
@@ -249,7 +250,6 @@ if($section === 'borrow'){
         FROM students
         ORDER BY student_last_name, student_first_name
     ");
-
     $students = $stmt->fetchAll();
 
     // Fetch Books for borrow form
@@ -261,8 +261,24 @@ if($section === 'borrow'){
         FROM books
         ORDER BY book_title
     ");
-
     $books = $stmt->fetchAll();
+
+    // Fetch Borrow History/Records with Student and Book details
+    $stmt = $pdo->query("
+        SELECT 
+            b.borrow_id,
+            s.student_first_name,
+            s.student_last_name,
+            bk.book_title,
+            bk.book_author,
+            b.borrow_date,
+            b.borrow_return_date
+        FROM borrow b
+        JOIN students s ON b.student_id = s.student_id
+        JOIN books bk ON b.book_id = bk.book_id
+        ORDER BY b.borrow_id DESC
+    ");
+    $borrowRecords = $stmt->fetchAll();
 }
 
 //Borrow a Book
@@ -682,6 +698,53 @@ if($section==='borrow' && $action==='create'){
                     </a>
 
                 </form>
+
+                <?php else: ?>
+
+<!-- Borrow Records Table -->
+            <table cellpadding="4">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Student Name</th>
+                        <th>Book Title</th>
+                        <th>Author</th>
+                        <th>Borrow Date</th>
+                        <th>Return Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (!empty($borrowRecords)): ?>
+                        <?php foreach($borrowRecords as $record): ?>
+                            <tr>
+                                <td>
+                                    <?= htmlspecialchars($record['borrow_id']) ?>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($record['student_first_name']
+                                     . ' ' . $record['student_last_name']) ?>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($record['book_title']) ?>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($record['book_author']) ?>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($record['borrow_date']) ?>
+                                </td>
+                                <td>
+                                    <?= htmlspecialchars($record['borrow_return_date'] ?? 'Not Returned') ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td>No borrow record is found.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
             <?php endif; ?>
         
 
