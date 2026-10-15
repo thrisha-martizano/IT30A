@@ -15,7 +15,7 @@ mysqldump -u root -p --databases lib_db > C:\Users\Admin\Documents\DEV-IT30A\it3
 mysqldump -u root -p --databases lib_db > C:\Users\Thrisha Mae\OneDrive\Documents\DEV-IT30A\backups\08182026_library_db.sql
 
 
-mysqldump -u root -p --databases library_db > "C:\Users\Thrisha Mae\OneDrive\Documents\DEV-IT30A\IT30A\backups\%date:~-4%_%date:~4,2%_%date:~7,2%_%time:~0,2%_%time:~3,2%_%time:~6,2%_library_db.sql"
+mysqldump -u root -p --databases it30a_lab_db > "C:\xampp.new\htdocs\IT30A\backups\%date:~-4%_%date:~4,2%_%date:~7,2%_%time:~0,2%_%time:~3,2%_%time:~6,2%_it30a_lab_db.sql"
  
 LABORATORY #2
 alter table students MODIFY COLUMN student_created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
